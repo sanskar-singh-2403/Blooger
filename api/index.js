@@ -15,7 +15,7 @@ const fs = require("fs");
 const salt = bcrypt.genSaltSync(10);
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "https://blooger-frontend.vercel.app/",
   credentials: true,
 };
 
