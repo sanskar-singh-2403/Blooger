@@ -29,6 +29,10 @@ mongoose.connect(process.env.DATABASE_URI)
     console.log("Connected to MongoDB");
 });
 
+app.get("/", (req,res) => {
+  res.json({message: "this is just for deployments"});
+});
+
 app.post("/register", async(req,res) => {
     const {username, password} = req.body;
     try {
