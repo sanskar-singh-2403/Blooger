@@ -98,15 +98,20 @@ app.post("/logout", (req,res) => {
     res.cookie("token", '').json({message: "Logged out"});
 });
 
+app.get("/cook", (req,res) => {
+  // console.log(req.cookies);
+  res.json(req.cookies);
+})
+
 app.post('/post', uploadMiddleware.single('file'), async (req,res) => {
+    const {token} = req.cookies;
+    console.log(token);
     const {originalname,path} = req.file;
     const parts = originalname.split('.');
     const ext = parts[parts.length - 1];
     const newPath = path+'.'+ext;
     fs.renameSync(path, newPath);
   
-    const {token} = req.cookies;
-    console.log(token);
     
     if (token) {
       jwt.verify(token, process.env.JWT_SECRET, {}, async (err,info) => {
