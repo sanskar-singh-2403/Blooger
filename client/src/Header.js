@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from 'react';
 export default function Header() {
     const {userInfo, setUserInfo} = useContext(UserContext);
     useEffect(() => {
-        fetch("http://localhost:4000/profile", {
+        fetch("https://bloogger-ovb2.onrender.com/profile", {
             credentials: "include",
         }).then((res) => {
             res.json().then(userInfo => {
@@ -15,7 +15,7 @@ export default function Header() {
     }, []);
 
     function logout() {
-        fetch("http://localhost:4000/logout", {
+        fetch("https://bloogger-ovb2.onrender.com/logout", {
             credentials: "include",
             method: "POST",
         });

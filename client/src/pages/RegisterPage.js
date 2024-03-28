@@ -7,7 +7,7 @@ export default function RegisterPage() {
 
     async function register(e) {
         e.preventDefault();
-        const response = await fetch("http://localhost:4000/register", {
+        const response = await fetch("https://bloogger-ovb2.onrender.com/register", {
             method: "POST",
             body: JSON.stringify({
                 username,

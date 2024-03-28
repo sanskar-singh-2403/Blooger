@@ -106,18 +106,23 @@ app.post('/post', uploadMiddleware.single('file'), async (req,res) => {
     fs.renameSync(path, newPath);
   
     const {token} = req.cookies;
-    jwt.verify(token, process.env.JWT_SECRET, {}, async (err,info) => {
-      if (err) throw err;
-      const {title,summary,content} = req.body;
-      const postDoc = await Post.create({
-        title,
-        summary,
-        content,
-        cover:newPath,
-        author:info.id,
+    if (token) {
+      jwt.verify(token, process.env.JWT_SECRET, {}, async (err,info) => {
+        if (err) throw err;
+        const {title,summary,content} = req.body;
+        const postDoc = await Post.create({
+          title,
+          summary,
+          content,
+          cover:newPath,
+          author:info.id,
+        });
+        res.json(postDoc);
       });
-      res.json(postDoc);
-    });
+    } else {
+      res.status(401).json({message: "Unauthorized"});
+    }
+    
   
   });
 
